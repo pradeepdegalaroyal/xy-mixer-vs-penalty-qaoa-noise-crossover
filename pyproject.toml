@@ -1,0 +1,12 @@
+[project]
+name = "xynoise"
+version = "0.1.0"
+description = "Noise robustness of constrained XY-mixer vs penalty QAOA"
+requires-python = ">=3.10"
+dependencies = ["numpy", "scipy", "pandas", "matplotlib", "networkx"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
