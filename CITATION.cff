@@ -1,9 +1,20 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite it."
-title: "Where does the constrained-mixer advantage in QAOA break under gate noise?"
+message: "If you use this software, please cite it as below."
+title: "XY-mixer vs penalty QAOA under gate noise"
+type: software
 authors:
-  - family-names: Chenchupradeep
-    given-names: Degala
-version: 0.1.0
-date-released: 2026-10-23
+  - family-names: "Chenchupradeep"
+    given-names: "Degala"
+    affiliation: "SRM University AP"
+version: "0.1.0"
+date-released: "2026-10-23"
 license: MIT
+repository-code: "https://github.com/pradeepdegalaroyal/xy-mixer-vs-penalty-qaoa-noise-crossover"
+abstract: "Constrained QAOA mixers keep the state inside the feasible subspace but need far more two-qubit gates than penalty QAOA. This simulation study measures where that overhead cancels the benefit on densest-k-subgraph (n = 8, k = 4, 5 random graphs) under a CX-count-weighted depolarising noise model. At depth 2, XY-mixer QAOA with a Dicke start keeps a higher feasible-weighted approximation ratio than penalty QAOA at every tested noise level, but it falls below penalty QAOA's *noiseless* value between p2 = 5e-3 and 1e-2."
+keywords:
+  - QAOA
+  - XY mixer
+  - constrained optimization
+  - gate noise
+  - densest k-subgraph
+  - simulation

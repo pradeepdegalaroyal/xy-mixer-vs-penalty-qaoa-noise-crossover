@@ -66,4 +66,18 @@ python experiments/run_all.py           # ~6 min (346 s here), Windows 11, CPU o
 `src/xynoise/core.py` (simulator, models, baselines) · `experiments/run_all.py` · `tests/` · `results/` · `figures/` · `docs/`
 
 ## Citation
-See `CITATION.cff`. License: MIT.
+If you use this code, please cite it. GitHub's "Cite this repository" button reads [CITATION.cff](CITATION.cff).
+
+```bibtex
+@software{chenchupradeep2026xymixer,
+  author  = {Chenchupradeep, Degala},
+  title   = {XY-mixer vs penalty QAOA under gate noise},
+  year    = {2026},
+  version = {0.1.0},
+  url     = {https://github.com/pradeepdegalaroyal/xy-mixer-vs-penalty-qaoa-noise-crossover},
+  license = {MIT}
+}
+```
+
+## License
+Released under the MIT licence; see [LICENSE](LICENSE). Copyright (c) 2026 Degala Chenchupradeep.
