@@ -1,10 +1,10 @@
 # Research gap
 
 ## State of the art
-QAOA is a leading NISQ candidate for combinatorial optimisation, but in its standard form it handles hard
+Quantum Approximate Optimization Algorithm (QAOA) is a leading noisy intermediate-scale quantum (NISQ) candidate for combinatorial optimisation, but in its standard form it handles hard
 constraints poorly (Wołk et al., 2027, doi:10.1016/j.ins.2026.124187). Two routes exist: add a quadratic
 penalty to the cost (cheap circuits, but the sampled distribution leaks into infeasible states), or restrict
-the mixer to the feasible subspace, e.g. an XY mixer on a Dicke initial state (the output is feasible by
+the mixer to the feasible subspace, e.g. an XY (excitation-number-preserving) mixer on a Dicke initial state (the output is feasible by
 construction, but circuits are much larger). The same work notes that the larger circuit "reduces noise
 robustness" and proposes a gate-count-reduced hypercube mixer. On the hardware side, parallel two-qubit gates
 at about 99.5% fidelity have been reported on neutral atoms (Evered et al., 2023, doi:10.1038/s41586-023-06481-y),

@@ -1,23 +1,24 @@
-# XY-mixer vs penalty QAOA under gate noise
+# XY (excitation-number-preserving)-mixer vs penalty Quantum Approximate Optimization Algorithm (QAOA) under gate noise
 
 ![License: MIT](https://img.shields.io/badge/license-MIT-green) ![Python 3.11](https://img.shields.io/badge/python-3.11-blue) ![CI](https://img.shields.io/badge/CI-GitHub%20Actions-lightgrey)
 
-**Abstract.** Constrained QAOA mixers keep the state inside the feasible subspace but need far more two-qubit gates than penalty QAOA. This simulation study measures where that overhead cancels the benefit on densest-k-subgraph (n = 8, k = 4, 5 random graphs) under a CX-count-weighted depolarising noise model. At depth 2, XY-mixer QAOA with a Dicke start keeps a higher feasible-weighted approximation ratio than penalty QAOA at every tested noise level, but it falls below penalty QAOA's *noiseless* value between p2 = 5e-3 and 1e-2.
+**Abstract.** Constrained QAOA mixers keep the state inside the feasible subspace but need far more two-qubit gates than penalty QAOA. This simulation study measures where that overhead cancels the benefit on densest-k-subgraph (n = 8, k = 4, 5 random graphs) under a controlled-X (CX)-count-weighted depolarising noise model. At depth 2, XY-mixer QAOA with a Dicke start keeps a higher feasible-weighted approximation ratio than penalty QAOA at every tested noise level, but it falls below penalty QAOA's *noiseless* value between p2 = 5e-3 and 1e-2.
 
 ## Motivation and gap
 Standard QAOA is poorly suited to constrained problems; restricting the mixer to the feasible subspace helps but enlarges the circuit and so reduces noise robustness (Wołk et al., 2027, doi:10.1016/j.ins.2026.124187). Realistic two-qubit errors are around 5e-3 on current neutral-atom hardware (Evered et al., 2023, doi:10.1038/s41586-023-06481-y). What is missing is a controlled measurement of the break-even noise rate. See [docs/RESEARCH_GAP.md](docs/RESEARCH_GAP.md) and [docs/METHOD.md](docs/METHOD.md).
 
 ## Method
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#ffffff', 'primaryTextColor': '#000000', 'primaryBorderColor': '#000000', 'lineColor': '#000000', 'secondaryColor': '#ffffff', 'tertiaryColor': '#ffffff', 'background': '#ffffff', 'noteBkgColor': '#ffffff', 'noteTextColor': '#000000', 'actorBkg': '#ffffff', 'actorBorder': '#000000', 'actorTextColor': '#000000', 'signalColor': '#000000', 'signalTextColor': '#000000', 'labelBoxBkgColor': '#ffffff', 'labelTextColor': '#000000', 'clusterBkg': '#ffffff', 'clusterBorder': '#000000'}}}%%
 graph LR
-A[Random graph, k] --> B[Train params noiselessly, COBYLA]
-B --> C[Penalty QAOA: X mixer]
-B --> D[XY-ring QAOA: Dicke start]
-B --> E[Ablation: XY, uniform start]
-C --> F[Pauli-trajectory noise, per-qubit CX count]
+A["Random graph, k"] --> B["Train params noiselessly, COBYLA"]
+B --> C["Penalty QAOA: X mixer"]
+B --> D["XY-ring QAOA: Dicke start"]
+B --> E["Ablation: XY, uniform start"]
+C --> F["Pauli-trajectory noise, per-qubit CX count"]
 D --> F
 E --> F
-F --> G[P feasible, feasible-weighted ratio, best of 100 shots]
+F --> G["P feasible, feasible-weighted ratio, best of 100 shots"]
 ```
 Parameters are trained without noise and evaluated under noise. Noise per layer and qubit is a random Pauli with probability 1−(1−p2)^c, c being the CX gates on that qubit (penalty cost layer 14, XY cost layer 2·degree, XY ring mixer 8, X mixer 0). Dicke preparation is assumed ideal.
 
@@ -42,7 +43,7 @@ P(feasible), depth 2: XY-Dicke 1.000 → 0.544 (p2 = 5e-3) → 0.330 (2e-2); pen
 ## Discussion
 - H1 holds in the means: XY-Dicke is above penalty-X at every p2, and it drops below penalty-X's noiseless ratio (0.349) between p2 = 5e-3 (0.390) and 1e-2 (0.295). At the largest p2 the gap (0.207 vs 0.176) is within one XY std, so I do not claim a separation there.
 - H2 holds: without the Dicke start the XY mixer is no better than penalty QAOA.
-- Deeper is not better under noise: for XY-Dicke, p = 3 is worse than p = 2 already at p2 = 5e-4 (see `summary.csv`), and the noiseless p = 3 value is below p = 2 (0.710 vs 0.758), which I attribute to the limited optimiser budget (6 COBYLA restarts), not to physics.
+- Deeper is not better under noise: for XY-Dicke, p = 3 is worse than p = 2 already at p2 = 5e-4 (see `summary.csv`), and the noiseless p = 3 value is below p = 2 (0.710 vs 0.758), which I attribute to the limited optimiser budget (6 Constrained Optimization BY Linear Approximation (COBYLA) restarts), not to physics.
 - **Negative/caveat:** the best-of-100-shots metric is saturated (≈1.0) for every method, including random feasible sampling and classical local search, because the instance has only 70 feasible states. At this size it cannot discriminate methods; the ratio metrics do. No quantum advantage is claimed.
 
 ## Limitations
@@ -80,4 +81,4 @@ If you use this code, please cite it. GitHub's "Cite this repository" button rea
 ```
 
 ## License
-Released under the MIT licence; see [LICENSE](LICENSE). Copyright (c) 2026 Degala Chenchupradeep.
+Released under the Massachusetts Institute of Technology (MIT) licence; see [LICENSE](LICENSE). Copyright (c) 2026 Degala Chenchupradeep.
